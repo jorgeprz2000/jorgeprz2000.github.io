@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jorge Pérez - Research Portfolio</title>
+    <style>
+        body {
+            background-color: #F9F6F3;
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            color: #2D2D2D;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(78, 115, 89, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(138, 75, 95, 0.04) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 60px 30px;
+        }
+
+        .header {
+            margin-bottom: 60px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin: 0 0 15px 0;
+            color: #1B3A2F;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            text-align: left;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            color: #4E7359;
+            margin-bottom: 25px;
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        .header .description {
+            font-size: 1em;
+            color: #5A5A5A;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .contact-info {
+            background-color: #F4F2F0;
+            padding: 20px 25px;
+            border-left: 4px solid #8A4B5F;
+            margin-top: 25px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #5A5A5A;
+        }
+
+        .contact-info a {
+            color: #6B4E73;
+            text-decoration: none;
+            border-bottom: 1px dotted #8A4B5F;
+        }
+
+        .contact-info a:hover {
+            color: #8A4B5F;
+            border-bottom: 1px solid #8A4B5F;
+        }
+
+        .navigation {
+            margin-bottom: 50px;
+            border-top: 1px solid #E0DDD9;
+            border-bottom: 1px solid #E0DDD9;
+            padding: 20px 0;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: 1.1em;
+            color: #5A5A5A;
+            margin-right: 35px;
+            cursor: pointer;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .nav-button:hover {
+            color: #4E7359;
+        }
+
+        .nav-button.active {
+            color: #1B3A2F;
+            font-weight: 500;
+        }
+
+        .nav-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -21px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #8A4B5F;
+        }
+
+        .section {
+            display: none;
+            margin-bottom: 40px;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            color: #1B3A2F;
+            margin-bottom: 30px;
+            font-size: 2em;
+            font-weight: 300;
+            letter-spacing: -0.3px;
+        }
+
+        .section h3 {
+            color: #4E7359;
+            margin: 35px 0 15px 0;
+            font-size: 1.4em;
+            font-weight: 400;
+        }
+
+        .intro-text {
+            font-size: 1.1em;
+            color: #4A4A4A;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .intro-text:first-of-type {
+            font-size: 1.15em;
+            color: #1B3A2F;
+        }
+
+        .publication {
+            margin-bottom: 35px;
+            padding: 25px;
+            background-color: #FEFCFA;
+            border-left: 3px solid #E0DDD9;
+            transition: border-color 0.2s ease;
+        }
+
+        .publication:hover {
+            border-left-color: #8A4B5F;
+        }
+
+        .publication-title {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: #1B3A2F;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .publication-details {
+            font-style: italic;
+            color: #6B4E73;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+        }
+
+        .publication p {
+            color: #5A5A5A;
+            margin: 0;
+            font-size: 0.95em;
+        }
+
+        .work-item {
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+        }
+
+        .work-item:not(:last-child) {
+            border-bottom: 1px solid #EFEBE8;
+        }
+
+        .work-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1B3A2F;
+            margin-bottom: 5px;
+        }
+
+        .work-subtitle {
+            color: #4E7359;
+            font-style: italic;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+
+        .work-item p {
+            color: #5A5A5A;
+            margin: 0;
+        }
+
+        .education-item {
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        .degree {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1B3A2F;
+            margin-bottom: 5px;
+        }
+
+        .institution {
+            color: #4E7359;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .education-item p {
+            color: #5A5A5A;
+            margin: 8px 0 0 0;
+            font-size: 0.95em;
+        }
+
+        .essay-placeholder {
+            background: linear-gradient(135deg, #F6F4F2 0%, #F1EDE9 100%);
+            border: 2px dashed #C8B8A5;
+            padding: 40px 30px;
+            text-align: center;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+
+        .essay-placeholder p {
+            color: #6B4E73;
+            font-style: italic;
+            margin: 0 0 10px 0;
+            font-size: 1em;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-category {
+            background-color: #F6F4F2;
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        .skill-category h4 {
+            color: #1B3A2F;
+            margin: 0 0 10px 0;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .skill-category p {
+            color: #5A5A5A;
+            margin: 0;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid #E0DDD9;
+            text-align: center;
+        }
+
+        .footer p {
+            color: #6B4E73;
+            font-size: 0.85em;
+            margin: 0;
+        }
+
+        ul {
+            color: #5A5A5A;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Jorge Pérez</h1>
+            <p class="subtitle">Research Assistant, Ada Lovelace Institute</p>
+            <p class="description">Investigating AI's societal impacts through interdisciplinary research, with a focus on cultural alignment, public attitudes, and technology governance.</p>
+            
+            <div class="contact-info">
+                <p><strong>Contact</strong></p>
+                <p>183 Hungerford Road, London N79LD</p>
+                <p>+44 7545 684610 | <a href="mailto:jorge.przap@gmail.com">jorge.przap@gmail.com</a></p>
+                <p><a href="https://linkedin.com/in/jorgeperezalvarez-pallete">LinkedIn Profile</a> | <a href="https://github.com/jorgeprz2000">GitHub</a></p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button active" onclick="showSection('about')">About</button>
+            <button class="nav-button" onclick="showSection('research')">Research</button>
+            <button class="nav-button" onclick="showSection('essays')">Writing</button>
+            <button class="nav-button" onclick="showSection('cv')">Experience</button>
+        </div>
+
+        <div id="about" class="section active">
+            <h2>About</h2>
+            
+            <p class="intro-text">I research how artificial intelligence systems interact with human values, cultural differences, and social structures at the Ada Lovelace Institute, focusing particularly on the societal implications of advanced AI technologies.</p>
+            
+            <p class="intro-text">My work combines quantitative analysis, qualitative research, and policy investigation to understand complex questions: How do large language models reflect or distort cultural values? What shapes public attitudes towards AI governance? How can we ensure AI development serves diverse communities?</p>
+            
+            <p class="intro-text">I bring an interdisciplinary background spanning Computer Science, Behavioural Science, and Policy research. I completed my MSc in Behavioural Sciences at LSE (receiving the Hilde Himmelweit award for best in cohort) and my BASc in Computer Science & Psychology at UCL with First Class honours.</p>
+            
+            <h3>Current Research Focus</h3>
+            <ul>
+                <li>Cultural alignment in large language models and frontier AI systems</li>
+                <li>Public attitudes towards AI governance across political divides</li>
+                <li>Societal impacts of advanced AI assistants and delegation technologies</li>
+                <li>Copyright and intellectual property in the age of generative AI</li>
+                <li>Intersection of political psychology and technology adoption</li>
+            </ul>
+
+            <h3>Research Approach</h3>
+            <p>I use a mix of experimental methods, survey research, computational analysis, and policy investigation. Recent projects have involved administering the World Values Survey to frontier models, analysing public attitudes data, and conducting stakeholder interviews across industry, government, and civil society.</p>
+        </div>
+
+        <div id="research" class="section">
+            <h2>Research & Publications</h2>
+            
+            <h3>Current Projects</h3>
+            
+            <div class="work-item">
+                <div class="work-title">Cultural Value Alignment in Language Models</div>
+                <div class="work-subtitle">Ada Lovelace Institute & LSE Muthukrishna Lab</div>
+                <p>Leading research investigating how Large Language Models replicate diverse cultural values using innovative methodologies including stratified silicon sampling and multilingual prompting. This work administers the World Values Survey to frontier models and compares responses to country-level data through correlations, multidimensional scaling, and hierarchical clustering.</p>
+            </div>
+
+            <div class="work-item">
+                <div class="work-title">Chinese Internet Shock Analysis</div>
+                <div class="work-subtitle">MIT FutureTech Department</div>
+                <p>Implementing mediation analysis alongside SciBERT transformer models to analyse how the 2014 Chinese Internet shock affected data-intensive industries, working with Dr. Meicen Sun.</p>
+            </div>
+
+            <h3>Recent Publications</h3>
+            
+            <div class="publication">
+                <div class="publication-title">Beyond Safety: Why Cultural Value Alignment in Language Models Matters</div>
+                <div class="publication-details">Forthcoming 2025 - Ada Lovelace Institute</div>
+                <p>Comprehensive report combining quantitative and policy research on cultural alignment in AI systems, examining why misalignment occurs and providing recommendations for policymakers.</p>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">How does political orientation shape public attitudes towards AI?</div>
+                <div class="publication-details">With Bruff O., Modhvadia R., Sippy T., Dutta A. - Forthcoming chapter, 2025, British Social Attitudes</div>
+                <p>Quantitative analysis examining how political partisanship and ideological strength influence public attitudes toward AI applications and governance approaches.</p>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">Delegation Nation – Advanced AI Assistants and why they matter</div>
+                <div class="publication-details">With Farmer H., Smakman J., Strait A. - 2025, Ada Lovelace Institute</div>
+                <p>Policy brief explaining how advanced AI assistants work, their potential benefits and risks, and key considerations for policymakers.</p>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">Journalism and generative AI: data, deals and disruption in the news media?</div>
+                <div class="publication-details">With Jones B., Strait A., Parnell B.A., Horzyk A.M. - 2025, Bridging Responsible AI Divides</div>
+                <p>Workshop findings on the current state of news publishing regarding AI model training data, associated concerns, and potential solutions for news publishers.</p>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">What are Immersive Technologies?</div>
+                <div class="publication-details">With Rincon, C. - 2025, Ada Lovelace Institute</div>
+                <p>Explainer of immersive technologies, how they work, different types, and policy considerations for decision-makers.</p>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">A Citizen Prosperity Index for east London: New evidence and a new approach to tackling inequalities</div>
+                <div class="publication-details">With Woodcraft, S., Tzivanakis, N., Hasan, Z - 2024, University College London, Institute for Global Prosperity</div>
+                <p>Quantitative analysis using simultaneous equation models to create prosperity measures based on longitudinal survey data in east London.</p>
+            </div>
+        </div>
+
+        <div id="essays" class="section">
+            <h2>Writing</h2>
+            
+            <div class="essay-placeholder">
+                <p><strong>Essays and longer-form pieces</strong></p>
+                <p>This space will showcase in-depth analysis, commentary, and original thinking on AI governance, cultural alignment, and technology policy.</p>
+            </div>
+            
+            <div class="essay-placeholder">
+                <p><strong>Policy commentary</strong></p>
+                <p>Pieces exploring the intersection of AI research and policy development, drawing from ongoing research and stakeholder engagement.</p>
+            </div>
+            
+            <div class="essay-placeholder">
+                <p><strong>Research reflections</strong></p>
+                <p>Thoughts on interdisciplinary research methods, the challenges of studying AI's societal impacts, and emerging research questions.</p>
+            </div>
+        </div>
+
+        <div id="cv" class="section">
+            <h2>Experience</h2>
+            
+            <h3>Current Position</h3>
+            <div class="work-item">
+                <div class="work-title">Research Assistant - Emerging Technology and Industry Practice</div>
+                <div class="work-subtitle">Ada Lovelace Institute | October 2024 - Present</div>
+                <p>Conducting interviews with industry experts, desk-based research, and quantitative analysis for research outputs on AI's societal impacts. Managing stakeholder relationships across civil society, industry, government, and regulators. Writing policy briefs, reports, academic papers, and consultation responses.</p>
+            </div>
+
+            <h3>Education</h3>
+            <div class="education-item">
+                <div class="degree">MSc Behavioural Sciences</div>
+                <div class="institution">The London School of Economics & Political Science | Sep 2022 – Sep 2023</div>
+                <p><strong>Hilde Himmelweit award for best in cohort (1/75)</strong></p>
+                <p>Focus on computational approaches to behavioural science. Thesis investigated the impact of affective states on partisan motivated reasoning through a conjoint experiment utilising sentiment analysis models (N = 500).</p>
+            </div>
+
+            <div class="education-item">
+                <div class="degree">BASc Computer Science & Psychology</div>
+                <div class="institution">University College London | Sep 2019 – May 2022</div>
+                <p><strong>First Class Honours</strong></p>
+                <p>Thesis examined applications and limitations of applying big data-driven behavioural insights in government.</p>
+            </div>
+
+            <h3>Previous Roles</h3>
+            <div class="work-item">
+                <div class="work-title">Researcher - Muthukrishna Lab</div>
+                <div class="work-subtitle">London School of Economics | Jan 2024 - Mar 2025</div>
+                <p>Lead researcher investigating capability of Large Language Models to replicate diverse cultural values with Dr. Muthukrishna using in-context learning and adaptive prompting techniques.</p>
+            </div>
+
+            <div class="work-item">
+                <div class="work-title">Research Assistant</div>
+                <div class="work-subtitle">MIT FutureTech | Mar 2024 - Aug 2024</div>
+                <p>Research Assistant to Dr. Meicen Sun implementing mediation analysis alongside SciBERT to analyse the 2014 Chinese Internet shock's impact on data-intensive industries.</p>
+            </div>
+
+            <div class="work-item">
+                <div class="work-title">Data Scientist</div>
+                <div class="work-subtitle">Institute for Global Prosperity | Jan 2024 - Oct 2024</div>
+                <p>Full-stack developer of Citizen Prosperity Index dashboard using R Shiny, HTML and CSS. Designed and organised deployment of household survey to 12,000 households. Co-produced analysis for policy bulletins on development in East London.</p>
+            </div>
+
+            <h3>Skills & Expertise</h3>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Research Methods</h4>
+                    <p>Experimental design, RCTs, discrete choice experiments, qualitative research, survey methodology</p>
+                </div>
+                <div class="skill-category">
+                    <h4>Technical Skills</h4>
+                    <p>STATA, R, Python, SQL, data visualisation, statistical analysis</p>
+                </div>
+                <div class="skill-category">
+                    <h4>Languages</h4>
+                    <p>Spanish and English (native speaker)</p>
+                </div>
+                <div class="skill-category">
+                    <h4>Certifications</h4>
+                    <p>AI Safety Fundamentals - Blue Dot Impact</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Jorge Pérez | Last updated: June 2025</p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
