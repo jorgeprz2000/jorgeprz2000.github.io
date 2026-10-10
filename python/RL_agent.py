@@ -1,6 +1,5 @@
 import random
 
-
 episodes = 1000
 
 environment = [["*",0,0,0], 
@@ -77,3 +76,31 @@ def move_agent(environment, movement_function):
 max_moves = 50
 
 move_agent(environment, movement_function)
+
+
+
+def create_Q_table():
+    Q_table = {}
+    for x in range(4):
+        for y in range(4):
+            Q_table[(x,y)] = {
+                "up":0,
+                "down":0,
+                "left":0,
+                "right":0
+            }
+    print(Q_table)
+    return Q_table
+
+Q_table = create_Q_table()
+
+def move_Q_table(position):
+    move_set = [(-1,0), (0,1), (0,-1), (1,0)]
+    epsilon = 1
+    n = random.random()
+    if n < 0.9:
+        movement = max(Q_table[position].values())
+    else:
+        movement = random.choice(move_set)
+    print("MOVEMENT " + str(movement))
+move_Q_table((0,0))
