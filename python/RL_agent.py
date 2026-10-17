@@ -1,5 +1,22 @@
 import random
 
+action_to_movement = {
+    "up" : (-1,0),
+    "down" : (1,0),
+    "left" : (0,-1),
+    "right" : (0,1)
+}
+
+def reward(position):
+    if position == (0,0):
+        reward = 1
+    else: 
+        reward = 0 
+    return reward 
+
+def Q_learning(current_position, previous_position):
+    # Work on this next !
+
 episodes = 1000
 
 environment = [["*",0,0,0], 
@@ -22,12 +39,49 @@ def movement_function():
     # print(movement)
     return movement
 
+
+def create_Q_table():
+    Q_table = {}
+    for x in range(4):
+        for y in range(4):
+            Q_table[(x,y)] = {
+                "up":0,
+                "down":0,
+                "left":0,
+                "right":0
+            }
+    # print(Q_table)
+    return Q_table
+
+Q_table = create_Q_table()
+
+def move_Q_table(position):
+    move_set = ["up", "down", "left", "right"]
+    epsilon = 0.1
+    n = random.random()
+    if n < epsilon:
+        direction_final = random.choice(move_set)
+        movement = Q_table[position][direction_final]
+    else:
+        match = []
+        movement = max(Q_table[position].values())
+        for i in Q_table[position]:
+            # print("HERE" + str(Q_table[position][i]))
+            if Q_table[position][i] == movement:
+                direction = i
+                match.append(direction)
+                # print(direction)
+        direction_final = random.choice(match)
+    
+    print("MOVEMENT " + str(movement) + direction_final)
+
+    return direction_final
+
 def move_agent(environment, movement_function):
     outcomes = []
     for n in range(episodes):
         win = False
         for i in range(max_moves):
-            movement = movement_function()
             row_count = 0
             # print(environment)
             for row in environment:
@@ -37,9 +91,9 @@ def move_agent(environment, movement_function):
                     column_count += 1
                     if value == 1:
                         saved_current_state = (row_count-1, column_count-1)
-            
+            movement = action_to_movement[move_Q_table(saved_current_state)]
             # clear board
-            
+        
             environment[saved_current_state[0]][saved_current_state[1]] = 0
             
             # move agent according to movement 
@@ -62,12 +116,12 @@ def move_agent(environment, movement_function):
                 # print("YOU WIN")
                 win = True
                 break
-        outcomes.append("Episode: " + str(n) + ", moves: " + str(i) + ", outcome: " + str(win))
+        outcomes.append("Episode: " + str(n) + ", moves: " + str(i + 1) + ", outcome: " + str(win))
         environment = reset()
     
     win_count = 0
     for outcome in outcomes:
-        print(outcome)
+        # print(outcome)
         if "True" in outcome:
             win_count += 1
 
@@ -79,28 +133,11 @@ move_agent(environment, movement_function)
 
 
 
-def create_Q_table():
-    Q_table = {}
-    for x in range(4):
-        for y in range(4):
-            Q_table[(x,y)] = {
-                "up":0,
-                "down":0,
-                "left":0,
-                "right":0
-            }
-    print(Q_table)
-    return Q_table
 
-Q_table = create_Q_table()
 
-def move_Q_table(position):
-    move_set = [(-1,0), (0,1), (0,-1), (1,0)]
-    epsilon = 1
-    n = random.random()
-    if n < 0.9:
-        movement = max(Q_table[position].values())
-    else:
-        movement = random.choice(move_set)
-    print("MOVEMENT " + str(movement))
-move_Q_table((0,0))
+
+
+
+
+
+# print(Q_table)
